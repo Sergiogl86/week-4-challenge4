@@ -1,7 +1,21 @@
+import { useContext } from "react";
+import FormContext from "../Context/Context";
+
 const KeyUserData = () => {
+  const {
+    userData,
+    setUserData,
+    initialPersonalData,
+    personalDataInput,
+    setPersonalDataInput,
+    changePersonalData,
+    insertPersonalData,
+    onSubmit,
+  } = useContext(FormContext);
+
   return (
-    <div class="container-sm">
-      <form class="form-inline">
+    <div className="container-sm">
+      <form className="form-inline" onSubmit={insertPersonalData}>
         <div className="form-group mx-sm-3">
           <label htmlFor="username">Username:</label>
           <input
@@ -10,7 +24,9 @@ const KeyUserData = () => {
             type="text"
             name="username"
             required
-            autocomplete="off"
+            autoComplete="off"
+            value={personalDataInput.username}
+            onChange={changePersonalData}
           />
         </div>
         <div className="form-group mx-sm-3">
@@ -21,7 +37,9 @@ const KeyUserData = () => {
             type="text"
             name="password"
             required
-            autocomplete="off"
+            autoComplete="off"
+            value={personalDataInput.password}
+            onChange={changePersonalData}
           />
         </div>
         <div className="form-group mx-sm-3 mt-3">

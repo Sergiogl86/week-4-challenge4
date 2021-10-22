@@ -1,27 +1,45 @@
+import { useContext } from "react";
+import FormContext from "../Context/Context";
+
 const PersonalData = () => {
+  const {
+    userData,
+    setUserData,
+    initialPersonalData,
+    personalDataInput,
+    setPersonalDataInput,
+    changePersonalData,
+    insertPersonalData,
+    onSubmit,
+  } = useContext(FormContext);
+
   return (
-    <div class="container-sm">
-      <form class="form-inline">
+    <div className="container-sm">
+      <form className="form-inline" onSubmit={insertPersonalData}>
         <div className="form-group mx-sm-3">
           <label htmlFor="nombre">Nombre:</label>
           <input
             className="form-control"
-            id="nombre"
+            id="name"
             type="text"
             name="nombre"
             required
-            autocomplete="off"
+            autoComplete="off"
+            value={personalDataInput.name}
+            onChange={changePersonalData}
           />
         </div>
         <div className="form-group mx-sm-3">
           <label htmlFor="lastName">Apellidos:</label>
           <input
             className="form-control"
-            id="lastName"
+            id="lastname"
             type="text"
             name="lastName"
             required
-            autocomplete="off"
+            autoComplete="off"
+            value={personalDataInput.lastname}
+            onChange={changePersonalData}
           />
         </div>
         <div className="form-group mx-sm-3">
@@ -32,7 +50,9 @@ const PersonalData = () => {
             type="date"
             name="birthdate"
             required
-            autocomplete="off"
+            autoComplete="off"
+            value={personalDataInput.birthdate}
+            onChange={changePersonalData}
           />
         </div>
         <div className="form-group mx-sm-3">
@@ -45,7 +65,9 @@ const PersonalData = () => {
             pattern="[^ @]*@[^ @]*"
             placeholder="Enter your email"
             required
-            autocomplete="off"
+            autoComplete="off"
+            value={personalDataInput.email}
+            onChange={changePersonalData}
           />
         </div>
         <div className="form-group mx-sm-3 mt-3">
@@ -54,6 +76,9 @@ const PersonalData = () => {
           </button>
         </div>
       </form>
+      <pre style={{ textAlign: "left" }}>
+        <div>{JSON.stringify(personalDataInput)}</div>
+      </pre>
     </div>
   );
 };
