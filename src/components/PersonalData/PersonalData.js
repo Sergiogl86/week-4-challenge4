@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import FormContext from "../Context/Context";
+import CalcularEdad from "./../CalcularEdad/CalcularEdad";
 
 const PersonalData = () => {
   const {
@@ -55,6 +56,7 @@ const PersonalData = () => {
             onChange={changePersonalData}
           />
         </div>
+        <div>{<CalcularEdad fecha={personalDataInput.birthdate} />}</div>
         <div className="form-group mx-sm-3">
           <label htmlFor="email">Email:</label>
           <input
