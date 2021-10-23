@@ -1,10 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import "./App.css";
-import PersonalData from "./components/PersonalData/PersonalData";
-import KeyUserData from "./components/KeyUserData/KeyUserData";
 import FormContext from "./components/Context/Context";
 import MostrarObjeto from "./components/MostrarObjeto/MostarObjeto";
+import Formulario from "./components/Formulario/Formulario";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -59,8 +58,7 @@ function App() {
         <header>
           <h1>Week 4 Challenge 4</h1>
         </header>
-        <PersonalData />
-        <KeyUserData />
+        <Formulario />
         <MostrarObjeto />
       </FormContext.Provider>
     </>

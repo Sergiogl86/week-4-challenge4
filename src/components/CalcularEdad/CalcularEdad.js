@@ -2,7 +2,6 @@ import { useMemo } from "react";
 
 const CalcularEdad = ({ fecha }) => {
   const Edad = useMemo(() => {
-    debugger;
     const dateString = fecha;
     const now = new Date();
 
@@ -14,10 +13,14 @@ const CalcularEdad = ({ fecha }) => {
 
     let yearAge = yearNow - yearDob;
 
-    return yearAge > 1 ? `${yearAge} years` : `${yearAge} year`;
+    if (yearAge) {
+      return yearAge > 1 ? `${yearAge} years` : `${yearAge} year`;
+    } else {
+      return "";
+    }
   }, [fecha]);
 
-  return <div> {Edad} </div>;
+  return <div className="text-center"> {Edad} </div>;
 };
 
 export default CalcularEdad;
