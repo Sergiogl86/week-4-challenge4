@@ -6,14 +6,7 @@ import MostrarObjeto from "./components/MostrarObjeto/MostarObjeto";
 import Formulario from "./components/Formulario/Formulario";
 
 function App() {
-  const [userData, setUserData] = useState({
-    name: "",
-    lastname: "",
-    birthdate: "",
-    email: "",
-    username: "",
-    password: "",
-  });
+  const [userData, setUserData] = useState([]);
 
   const initialPersonalData = {
     name: "",
@@ -23,6 +16,11 @@ function App() {
     username: "",
     password: "",
   };
+
+  const [formStates, setFormStates] = useState({
+    statePersonalData: true,
+    stateKeyUserData: false,
+  });
 
   const [personalDataInput, setPersonalDataInput] =
     useState(initialPersonalData);
@@ -39,7 +37,29 @@ function App() {
     onSubmit(personalDataInput);
   };
   const onSubmit = () => {
-    setUserData(personalDataInput);
+    setUserData([...userData, personalDataInput]);
+    setPersonalDataInput(initialPersonalData);
+    setFormStates({
+      ...formStates,
+      statePersonalData: false,
+      stateKeyUserData: false,
+    });
+  };
+
+  const siguiente = () => {
+    setFormStates({
+      ...formStates,
+      statePersonalData: false,
+      stateKeyUserData: true,
+    });
+  };
+
+  const atras = () => {
+    setFormStates({
+      ...formStates,
+      statePersonalData: true,
+      stateKeyUserData: false,
+    });
   };
 
   return (
@@ -53,6 +73,10 @@ function App() {
           setPersonalDataInput,
           changePersonalData,
           insertPersonalData,
+          formStates,
+          setFormStates,
+          siguiente,
+          atras,
         }}
       >
         <header>

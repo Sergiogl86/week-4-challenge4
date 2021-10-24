@@ -5,26 +5,20 @@ import KeyUserData from "./../KeyUserData/KeyUserData";
 
 const Formulario = () => {
   const {
-    userData,
-    setUserData,
-    initialPersonalData,
     personalDataInput,
-    setPersonalDataInput,
-    changePersonalData,
-    insertPersonalData,
-    onSubmit,
+
+    formStates,
   } = useContext(FormContext);
 
   return (
-    <div className="container-sm">
-      <form className="form-inline" onSubmit={insertPersonalData}>
-        <PersonalData state={true} />
-        <KeyUserData state={true} />
-      </form>
+    <>
+      <PersonalData state={formStates.statePersonalData} />
+      <KeyUserData state={formStates.stateKeyUserData} />
+
       <pre style={{ textAlign: "left" }}>
         <div>{JSON.stringify(personalDataInput)}</div>
       </pre>
-    </div>
+    </>
   );
 };
 

@@ -14,7 +14,7 @@ const CalcularEdad = ({ fecha }) => {
     let yearAge = yearNow - yearDob;
 
     if (yearAge) {
-      return yearAge > 1 ? `${yearAge} years` : `${yearAge} year`;
+      return yearAge > 1 ? `${yearAge} años` : `${yearAge} año`;
     } else {
       return "";
     }
