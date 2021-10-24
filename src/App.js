@@ -70,6 +70,9 @@ function App() {
         });
       }
     });
+    if (usuarioEncontrado) {
+      console.log("Mario pushea señores con reduce!");
+    }
 
     setLoginDataInput({
       ...loginDataInput,
