@@ -2,13 +2,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import "./App.css";
 import FormContext from "./components/Context/Context";
-import MostrarObjeto from "./components/MostrarObjeto/MostarObjeto";
 import Formulario from "./components/Formulario/Formulario";
 import Boton from "./components/Boton/Boton";
 import Ficha from "./components/Ficha/Ficha";
+import Login from "./components/Login/Login";
 
 function App() {
   const [userData, setUserData] = useState([]);
+
+  const [formStates, setFormStates] = useState({
+    statePersonalData: false,
+    stateKeyUserData: false,
+    stateFicha: false,
+    stateLogin: false,
+  });
 
   const initialPersonalData = {
     name: "",
@@ -19,11 +26,56 @@ function App() {
     password: "",
   };
 
-  const [formStates, setFormStates] = useState({
-    statePersonalData: false,
-    stateKeyUserData: false,
-    stateFicha: false,
-  });
+  const initialLoginDataInput = {
+    username: "",
+    password: "",
+    error: "",
+  };
+
+  const [loginDataInput, setLoginDataInput] = useState(initialLoginDataInput);
+
+  const changeLoginDataInput = (event) => {
+    setLoginDataInput({
+      ...loginDataInput,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const onSubmitLogin = (event) => {
+    event.preventDefault();
+    const usuarioEncontrado = userData.map((usuario) => {
+      if (
+        usuario.username === loginDataInput.username &&
+        usuario.password === loginDataInput.password
+      ) {
+        setPersonalDataInput({
+          ...personalDataInput,
+          name: usuario.name,
+          lastname: usuario.lastname,
+          birthdate: usuario.birthdate,
+          email: usuario.email,
+          username: usuario.username,
+        });
+        setFormStates({
+          ...formStates,
+          stateLogin: false,
+          stateFicha: true,
+        });
+        setLoginDataInput(initialLoginDataInput);
+        return usuario;
+      } else {
+        return setLoginDataInput({
+          ...loginDataInput,
+          error: "No encontrado",
+        });
+      }
+    });
+
+    setLoginDataInput({
+      ...loginDataInput,
+      error: "No encontrado",
+    });
+  };
 
   const [personalDataInput, setPersonalDataInput] =
     useState(initialPersonalData);
@@ -75,7 +127,17 @@ function App() {
       stateKeyUserData: true,
     });
   };
-
+  const goHome = () => {
+    setPersonalDataInput(initialPersonalData);
+    setLoginDataInput(initialLoginDataInput);
+    setFormStates({
+      ...formStates,
+      statePersonalData: false,
+      stateKeyUserData: false,
+      stateFicha: false,
+      stateLogin: false,
+    });
+  };
   const atras = () => {
     setFormStates({
       ...formStates,
@@ -89,6 +151,17 @@ function App() {
       ...formStates,
       statePersonalData: true,
       stateKeyUserData: false,
+      stateFicha: false,
+      stateLogin: false,
+    });
+  };
+  const loginUsuario = () => {
+    setFormStates({
+      ...formStates,
+      statePersonalData: false,
+      stateKeyUserData: false,
+      stateFicha: false,
+      stateLogin: true,
     });
   };
 
@@ -112,6 +185,9 @@ function App() {
           passwordError,
           setPasswordError,
           changepasswordRepeat,
+          loginDataInput,
+          changeLoginDataInput,
+          onSubmitLogin,
         }}
       >
         <header>
@@ -119,21 +195,31 @@ function App() {
           <nav className="navbar navbar-light bg-light">
             <form className="container-fluid justify-content-start">
               <Boton
+                text="Home"
+                state={true}
+                actionOnClick={goHome}
+                className="btn btn-outline-success me-2"
+              />
+
+              <Boton
                 text="Añadir Usuario"
                 state={true}
                 actionOnClick={añadirUsuario}
                 className="btn btn-outline-success me-2"
               />
 
-              <button className="btn btn-outline-success me-2" type="button">
-                Smaller button
-              </button>
+              <Boton
+                text="Login"
+                state={true}
+                actionOnClick={loginUsuario}
+                className="btn btn-outline-success me-2"
+              />
             </form>
           </nav>
         </header>
         <Formulario />
-        <MostrarObjeto />
         <Ficha state={formStates.stateFicha} />
+        <Login state={formStates.stateLogin} />
       </FormContext.Provider>
     </>
   );
