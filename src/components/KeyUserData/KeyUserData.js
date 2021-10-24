@@ -1,28 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import FormContext from "../Context/Context";
 import Boton from "../Boton/Boton";
 
 const KeyUserData = ({ state }) => {
-  const { personalDataInput, changePersonalData, insertPersonalData, atras } =
-    useContext(FormContext);
+  const {
+    personalDataInput,
+    changePersonalData,
+    insertPersonalData,
+    atras,
+    passwordRepeat,
 
-  const [passwordRepeat, setPasswordRepeat] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+    passwordError,
 
-  useEffect(() => {
-    if (
-      passwordRepeat === personalDataInput.password &&
-      passwordRepeat !== ""
-    ) {
-      setPasswordError("Ok");
-    } else if (passwordRepeat !== "") {
-      setPasswordError("Password Error");
-    }
-  }, [passwordRepeat, personalDataInput.password]);
-
-  const changepasswordRepeat = (event) => {
-    setPasswordRepeat(event.target.value);
-  };
+    changepasswordRepeat,
+  } = useContext(FormContext);
 
   return !state ? (
     <></>
@@ -87,7 +78,12 @@ const KeyUserData = ({ state }) => {
           </div>
           <div className="form-group mx-sm-3 mt-3">
             <div className="align-items-end container d-flex flex-column mt-3 p-0">
-              <Boton text={"Atras"} state={true} actionOnClick={atras} />
+              <Boton
+                text={"Atras"}
+                state={true}
+                actionOnClick={atras}
+                className="btn btn-primary"
+              />
               <button type="submit" className="btn btn-primary mt-3">
                 Enviar
               </button>
