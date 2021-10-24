@@ -4,20 +4,12 @@ import PersonalData from "./../PersonalData/PersonalData";
 import KeyUserData from "./../KeyUserData/KeyUserData";
 
 const Formulario = () => {
-  const {
-    personalDataInput,
-
-    formStates,
-  } = useContext(FormContext);
+  const { formStates } = useContext(FormContext);
 
   return (
     <>
       <PersonalData state={formStates.statePersonalData} />
       <KeyUserData state={formStates.stateKeyUserData} />
-
-      <pre style={{ textAlign: "left" }}>
-        <div>{JSON.stringify(personalDataInput)}</div>
-      </pre>
     </>
   );
 };
